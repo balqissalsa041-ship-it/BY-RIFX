@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RIFX — Digital Store</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 8, 8, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #222;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px 60px;
+            background:
+                radial-gradient(circle at center, #1d1d1d 0%, #080808 55%);
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .small-title {
+            color: #999;
+            font-size: 13px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(60px, 13vw, 150px);
+            line-height: 0.9;
+            letter-spacing: -8px;
+            font-weight: 900;
+        }
+
+        .hero h1 span {
+            color: #888;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 30px auto;
+            color: #aaa;
+            font-size: 16px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 28px;
+            background: white;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            transform: translateY(-4px);
+            background: #ccc;
+        }
+
+        /* SECTION */
+
+        section {
+            padding: 100px 8%;
+        }
+
+        .section-title {
+            margin-bottom: 50px;
+        }
+
+        .section-title p {
+            color: #777;
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 45px;
+            margin-top: 8px;
+        }
+
+        /* PRODUCTS */
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #111;
+            border: 1px solid #242424;
+            border-radius: 18px;
+            padding: 15px;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #555;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 240px;
+            background: #1b1b1b;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .card-button {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #444;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .card-button:hover {
+            background: white;
+            color: black;
+        }
+
+        /* ABOUT */
+
+        .about {
+            max-width: 800px;
+        }
+
+        .about p {
+            color: #999;
+            font-size: 18px;
+        }
+
+        /* LINKS */
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .links a {
+            color: white;
+            text-decoration: none;
+            border: 1px solid #333;
+            padding: 13px 22px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .links a:hover {
+            background: white;
+            color: black;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 40px 8%;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 13px;
+        }
+
+        /* ANIMATION */
+
+        .fade {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: muncul 1s forwards;
+        }
+
+        @keyframes muncul {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 16px 5%;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            section {
+                padding: 80px 5%;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                letter-spacing: -4px;
+            }
+
+            .section-title h2 {
+                font-size: 35px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+        <div class="logo">RIFX X 祉萱</div>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#produk">Produk</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+           
+        </ul>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content fade">
+
+            <div class="small-title">
+                Digidaw
+            </div>
+
+            <h1>
+                RI<span>FX</span>
+            </h1>
+
+            <p>
+                JUAL BELI COC RIFX
+            </p>
+
+            <a
+                class="button"
+                href="https://wa.me/62881010632996?text=Halo%20RIFX,%20saya%20tertarik%20dengan%20produk%20yang%20ditawarkan."
+                target="_blank">
+                Hubungi RIFX
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUK -->
+
+    <section id="produk">
+
+        <div class="section-title">
+            <p>Our Products</p>
+            <h2>Produk</h2>
+        </div>
+
+        <div class="products">
+
+            <!-- PRODUK 1 -->
+
+            <div class="card">
+
+                <div class="card-image">
+                    FOTO PRODUK
+                </div>
+
+                <h3>Produk 01</h3>
+
+                <p>
+                    TH 18
+          
+                </p>
+
+                <div class="price">
+                    Rp100.000
+                </div>
+
+                <a
+                    class="card-button"
+                    href="https://wa.me/62881010632996?text=Halo%20RIFX,%20saya%20minat%20Produk%2001."
+                    target="_blank">
+                    Saya Minat
+                </a>
+
+            </div>
+
+
+            <!-- PRODUK 2 -->
+
+            <div class="card">
+
+                <div class="card-image">
+                    FOTO PRODUK
+                </div>
+
+                <h3>Produk 02</h3>
+
+                <p>
+                    Deskripsi singkat produk kamu
+                    bisa ditaruh di sini.
+                </p>
+
+                <div class="price">
+                    Rp150.000
+                </div>
+
+                <a
+                    class="card-button"
+                    href="https://wa.me/62881010632996?text=Halo%20RIFX,%20saya%20minat%20Produk%2002."
+                    target="_blank">
+                    Saya Minat
+                </a>
+
+            </div>
+
+
+            <!-- PRODUK 3 -->
+
+            <div class="card">
+
+                <div class="card-image">
+                    FOTO PRODUK
+                </div>
+
+                <h3>Produk 03</h3>
+
+                <p>
+                    Deskripsi singkat produk kamu
+                    bisa ditaruh di sini.
+                </p>
+
+                <div class="price">
+                    Rp200.000
+                </div>
+
+                <a
+                    class="card-button"
+                    href="https://wa.me/62881010632996?text=Halo%20RIFX,%20saya%20minat%20Produk%2003."
+                    target="_blank">
+                    Saya Minat
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+        <div class="section-title">
+            <p>About</p>
+            <h2>Tentang RIFX</h2>
+        </div>
+
+        <div class="about">
+
+            <p>
+                TILL ALL ARE ONE 
+              
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- LINKS -->
+
+    <section id="contact">
+
+        <div class="section-title">
+            <p>Find Us</p>
+            <h2>Link</h2>
+        </div>
+
+        <div class="links">
+
+            <a href="https://wa.me/62881010632996" target="_blank">
+                WhatsApp
+            </a>
+
+            <a href="https://instagram.com/pejuangusc092" target="_blank">
+                Instagram
+            </a>
+
+            <a href="https://www.tiktok.com/@pejuangusc0?_r=1&_t=ZS-99WiLxGjyya" target="_blank">
+                TikTok
+            </a>
+
+            
+            
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div>
+            © 2026 RIFX
+        </div>
+
+        <div>
+            Digital Store
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // Efek sederhana saat halaman dibuka
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const elements =
+                document.querySelectorAll(".fade");
+
+            elements.forEach((element, index) => {
+
+                element.style.animationDelay =
+                    (index * 0.15) + "s";
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
